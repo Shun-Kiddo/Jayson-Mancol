@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* Light Theme (default) */
+:root {
+  --color-background: #ffffff;  
+  --color-foreground: #2f3237; 
+  --color-primary: #c7c7c748;    
+  
+}
+
+/* Dark Theme */
+:root[data-theme="dark"] {
+  --color-background: #0f0f14;   
+  --color-foreground: #f5f5f5;  
+ 
+}
+
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: "Inter", sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .font-serif {
+    font-family: "Playfair Display", serif;
+  }
+
+}
+
+@layer components {
+  .hover-highlight {
+    transition: all 0.3s;
+    border-radius: 0.375rem; 
+  }
+
+  .hover-highlight:hover {
+    background-color: var(--color-primary); 
+  }
+}
