@@ -5,6 +5,7 @@ import { Project } from "@/sections/Project";
 import { Skills } from "@/sections/Skills";
 import { Resume } from "@/sections/Resume";
 import { Contact } from "@/sections/Contact";
+
 function App() {
   return (
     <div className="min-h-screen overflow-x-hidden">
