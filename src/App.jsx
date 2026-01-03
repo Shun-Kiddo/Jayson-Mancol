@@ -5,12 +5,14 @@ import { Project } from "@/sections/Project";
 import { Skills } from "@/sections/Skills";
 import { Resume } from "@/sections/Resume";
 import { Contact } from "@/sections/Contact";
+import BackgroundParticles from "@/components/BackgroundParticles";
 
 function App() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div>
+      <BackgroundParticles/>
       <Navbar />
-      <main>
+     <main className="max-w-[1280px] mx-auto px-6">
         <Hero />
         <About />
         <Project />

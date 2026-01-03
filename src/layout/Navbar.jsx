@@ -1,7 +1,7 @@
 import profile from "@/assets/jayson-pic.jfif";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { MenuToggle } from "@/components/MenuToggle";
+import { Menu, X } from "lucide-react";
 const Navlinks = [
   { href: "#aboutme", label: "About Me" },
   { href: "#project", label: "Project" },
@@ -10,6 +10,14 @@ const Navlinks = [
 ];
 
 export const Navbar = () => {
+  {
+    /* Mobile Menu Open */
+  }
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  {
+    /* Dark Mode Toggle */
+  }
   const [theme, setTheme] = useState(null);
   const storageKey = "theme-preference";
   const getColorPreference = () => {
@@ -51,63 +59,70 @@ export const Navbar = () => {
   if (!theme) return null;
 
   return (
-    <header className="sticky top-0 left-0 right-0 bg-transparent z-50 border-b border-b border-gray-400/40 backdrop-blur-sm">
-      <nav className="container mx-auto px-6 flex items-center justify-between py-5">
-        {/* Logo / Profile */}
-        <a href="#" className="flex items-center gap-3 font-bold">
-          <img
-            src={profile}
-            alt="Jayson Mancol"
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          <div className="flex flex-col leading-tight">
-            <span className="text-lg">Jayson Mancol</span>
-            <span className="text-xs font-normal text-gray-400">
-              Web / App Developer
-            </span>
-          </div>
-        </a>
-
-        {/* Navigation Links + Theme Button */}
-        <div className="hidden md:flex items-center gap-1 text-sm">
-          {Navlinks.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              className="px-2 py-1 rounded-md transition hover-highlight"
-            >
-              {link.label}
-            </a>
-          ))}
-
-          {/* Theme toggle button */}
-          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-        </div>
-
-        {/* Mobile Actions */}
-        <div className="md:hidden flex items-center gap-1">
-          {/* Dark mode button */}
-          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-
-          {/* Menu button */}
-          <MenuToggle />
-        </div>
-      </nav>
-
-      {/*Mobile Menu*/}
-      <div className="md:hidden glass">
-        <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
-          {Navlinks.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              className="text-lg text-muted-foreground hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
+    <header className="sticky top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm">
+  
+  {/* Navbar content limited to 1280px */}
+  <nav className="max-w-[1280px] mx-auto px-6 flex items-center justify-between py-5">
+    {/* Profile */}
+    <a href="#" className="flex items-center gap-3 font-bold">
+      <img
+        src={profile}
+        alt="Jayson Mancol"
+        className="w-10 h-10 rounded-full object-cover"
+      />
+      <div className="flex flex-col leading-tight">
+        <span className="text-lg">Jayson Mancol</span>
+        <span className="text-xs font-normal text-red-500">
+          Web / App Developer
+        </span>
       </div>
-    </header>
+    </a>
+
+    {/* Navigation Links */}
+    <div className="hidden md:flex items-center gap-1 text-sm">
+      {Navlinks.map((link, index) => (
+        <a
+          key={index}
+          href={link.href}
+          className="px-2 py-1 hover-highlight transition"
+        >
+          {link.label}
+        </a>
+      ))}
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+    </div>
+
+    {/* Mobile Menu */}
+    <div className="md:hidden flex items-center gap-1">
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      <button
+        onClick={() => setMobileMenuOpen((prev) => !prev)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+    </div>
+  </nav>
+
+  {/* Mobile Menu */}
+  {mobileMenuOpen && (
+    <div className="md:hidden animate-fade-in">
+      <div className="max-w-[1280px] mx-auto px-6 py-6 flex flex-col gap-4">
+        {Navlinks.map((link, index) => (
+          <a
+            key={index}
+            href={link.href}
+            className="text-lg text-muted-foreground hover:text-foreground"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+  {/* Full-width border */}
+  <div className="w-full border-b border-gray-400/80 h-px"></div>
+</header>
+
   );
 };
