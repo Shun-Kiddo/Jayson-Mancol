@@ -5,6 +5,7 @@ import { Project } from "@/sections/Project";
 import { Skills } from "@/sections/Skills";
 import { Resume } from "@/sections/Resume";
 import { Contact } from "@/sections/Contact";
+import { Footer } from "@/layout/Footer";
 import BackgroundParticles from "@/components/BackgroundParticles";
 import { useEffect } from "react"; // 1. Import useEffect
 
@@ -32,6 +33,7 @@ function App() {
         <Skills />
         <Resume />
         <Contact />
+        <Footer />
       </main>
     </div>
   );

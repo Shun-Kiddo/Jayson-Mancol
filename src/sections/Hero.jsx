@@ -1,6 +1,7 @@
 import profile from "@/assets/jayson-pic.jfif";
 import hand from "@/assets/waving-hand.svg";
 import { useEffect, useRef, useState } from "react";
+import { Github, Linkedin, Facebook, Instagram, ArrowUp } from "lucide-react";
 export const Hero = () => {
   const sectionRef = useRef(null);
   const leftRef = useRef(null);
@@ -102,8 +103,28 @@ export const Hero = () => {
     };
   }, []);
 
+  const socialLinks = [
+    {
+      icon: <Facebook size={20} />,
+      href: "https://www.facebook.com/Shun.Kiddo",
+      label: "Facebook",
+    },
+    {
+      icon: <Linkedin size={20} />,
+      href: "https://www.linkedin.com/in/jayson-flores-mancol",
+      label: "LinkedIn",
+    },
+    { icon: <Github size={20} />, href: "https://github.com/Shun-Kiddo", label: "GitHub" },
+    {
+      icon: <Instagram size={20} />,
+      href: "https://www.instagram.com/shun_kiddo",
+      label: "Instagram",
+    },
+  ];
+
   return (
-    <section id="hero"
+    <section
+      id="hero"
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
@@ -169,12 +190,12 @@ export const Hero = () => {
         <div
           ref={rightRef}
           className="intro max-w-[400px] text-white relative flex flex-col items-center
-             transition-transform transition-opacity duration-300 ease-out"
+      transition-transform transition-opacity duration-300 ease-out"
         >
           {/* Profile Image */}
           <div className="relative group">
-            {/* Decorative background element */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-[color:var(--color-subtext)] rounded-2xl -z-10 group-hover:bottom-0 group-hover:right-0 transition-all duration-300" />
+            {/* Decorative background element - HIDDEN ON MOBILE */}
+            <div className="hidden lg:block absolute -bottom-4 -right-4 w-full h-full border-2 border-[color:var(--color-subtext)] rounded-2xl -z-10 group-hover:bottom-0 group-hover:right-0 transition-all duration-300" />
 
             <div className="bg-[color:var(--color-background)] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
               <img
@@ -183,56 +204,25 @@ export const Hero = () => {
                 className="w-full aspect-[4/5] object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
               />
 
-              {/* Compact Social Media List */}
+              {/* Compact Social Media List using Map */}
               <div className="p-5 bg-white/[0.02]">
                 <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-                  <a
-                    href="https://www.facebook.com/Shun.Kiddo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 group/link"
-                  >
-                    <i className="fab fa-facebook text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 group-hover/link:text-[#1877F2] transition-all"></i>
-                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
-                      Facebook
-                    </span>
-                  </a>
-
-                  <a
-                    href="https://www.linkedin.com/in/jayson-flores-mancol"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 group/link"
-                  >
-                    <i className="fab fa-linkedin text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 group-hover/link:text-[#0A66C2] transition-all"></i>
-                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
-                      LinkedIn
-                    </span>
-                  </a>
-
-                  <a
-                    href="https://www.instagram.com/shun_kiddo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 group/link"
-                  >
-                    <i className="fab fa-instagram text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 group-hover/link:text-[#E4405F] transition-all"></i>
-                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
-                      Instagram
-                    </span>
-                  </a>
-
-                  <a
-                    href="https://www.tiktok.com/@shun_kiddo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 group/link"
-                  >
-                    <i className="fab fa-tiktok text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 transition-all"></i>
-                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
-                      TikTok
-                    </span>
-                  </a>
+                  {socialLinks.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 group/link"
+                    >
+                      <span className="text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 group-hover/link:text-[color:var(--color-subtext)] transition-all">
+                        {link.icon}
+                      </span>
+                      <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
+                        {link.label}
+                      </span>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -242,31 +232,3 @@ export const Hero = () => {
     </section>
   );
 };
-
-{
-  /* Social media icons    
-  <div className="flex gap-1 mt-6 text-lg sm:text-xl md:text-2xl">
-            <a
-              href="https://www.facebook.com/Shun.Kiddo"
-              target="_blank"
-              className="fab fa-facebook text-[color:var(--color-foreground)] rounded hover:bg-[color:var(--color-primary)] transition p-2"
-            ></a>
-            <a
-              href="https://www.tiktok.com/@shun_kiddo"
-              target="_blank"
-              className="fab fa-tiktok text-[color:var(--color-foreground)]  rounded hover:bg-[color:var(--color-primary)] transition p-2"
-            ></a>
-            <a
-              href="https://www.linkedin.com/in/jayson-flores-mancol"
-              target="_blank"
-              className="fab fa-linkedin text-[color:var(--color-foreground)]  rounded hover:bg-[color:var(--color-primary)] transition p-2"
-            ></a>
-            <a
-              href="https://www.instagram.com/shun_kiddo"
-              target="_blank"
-              className="fab fa-instagram text-[color:var(--color-foreground)] rounded hover:bg-[color:var(--color-primary)] transition p-2"
-            ></a>
-          </div>
-
-        */
-}

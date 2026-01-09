@@ -136,7 +136,7 @@ export const Navbar = () => {
               </a>
             );
           })}
-          <div className="ml-2 pl-6 border-l border-white/10">
+          <div className="ml-2 pl-6 border-l border-gray-400">
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
         </div>

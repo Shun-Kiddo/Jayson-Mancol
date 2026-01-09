@@ -210,7 +210,7 @@ export const About = () => {
               </div>
             </div>
             {/* Call to action */}
-            <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="p-8 rounded-2xl bg-[color:var(--color-background)]  border border-gray-400 flex flex-col md:flex-row justify-between items-center gap-6">
               <p className="text-center md:text-left">
                 <span className="block text-xl font-medium">
                   Have a project in mind?
