@@ -103,7 +103,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section
+    <section id="hero"
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden"
     >

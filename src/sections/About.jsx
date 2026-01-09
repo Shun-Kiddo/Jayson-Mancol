@@ -1,6 +1,10 @@
 import profile from "@/assets/defungol.jpg";
-
+import { useEffect, useRef, useState } from "react";
 export const About = () => {
+  const sectionRef = useRef(null);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+
   const techStack = [
     { name: "React", icon: "devicon-react-original" },
     { name: "Tailwind", icon: "devicon-tailwindcss-original" },
@@ -15,6 +19,64 @@ export const About = () => {
     { name: "HTML5", icon: "devicon-html5-plain" },
     { name: "CSS3", icon: "devicon-css3-plain" },
   ];
+
+  useEffect(() => {
+    // Disable scroll animation on mobile
+    if (window.innerWidth < 768) return;
+
+    if (!sectionRef.current) return;
+
+    const handleScroll = () => {
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Section fully visible → RESET
+      if (rect.top <= windowHeight * 0.2 && rect.bottom >= windowHeight * 0.8) {
+        if (leftRef.current) {
+          leftRef.current.style.transform = "translate(0, 0)";
+          leftRef.current.style.opacity = "1";
+        }
+        if (rightRef.current) {
+          rightRef.current.style.transform = "translate(0, 0)";
+          rightRef.current.style.opacity = "1";
+        }
+        return;
+      }
+
+      // Section leaving upward → hide progressively
+      const progress = Math.min(
+        Math.max((windowHeight - rect.bottom) / windowHeight, 0),
+        1
+      );
+      const x = 140 * progress;
+      const y = 90 * progress;
+
+      if (leftRef.current) {
+        leftRef.current.style.transform = `translate(-${x}px, -${y}px)`;
+        leftRef.current.style.opacity = `${1 - progress}`;
+      }
+      if (rightRef.current) {
+        rightRef.current.style.transform = `translate(${x}px, -${y}px)`;
+        rightRef.current.style.opacity = `${1 - progress}`;
+      }
+    };
+
+    const options = { passive: true };
+
+    window.addEventListener("scroll", handleScroll, options);
+    window.addEventListener("wheel", handleScroll, options);
+    window.addEventListener("touchmove", handleScroll, options);
+    window.addEventListener("pointerdown", handleScroll, options);
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll, options);
+      window.removeEventListener("wheel", handleScroll, options);
+      window.removeEventListener("touchmove", handleScroll, options);
+      window.removeEventListener("pointerdown", handleScroll, options);
+    };
+  }, []);
 
   return (
     <section id="aboutme" className="py-24 bg-[color:var(--color-background)]">
