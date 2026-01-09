@@ -2,6 +2,13 @@ import profile from "@/assets/jayson-pic.jfif";
 import hand from "@/assets/waving-hand.svg";
 import { useEffect, useRef, useState } from "react";
 export const Hero = () => {
+  const sectionRef = useRef(null);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+
+  {
+    /* Typing effect for name */
+  }
   const names = ["Jayson", "Developer"];
   useEffect(() => {
     document.body.classList.add("loaded");
@@ -36,82 +43,230 @@ export const Hero = () => {
     }
     return () => clearTimeout(timeout);
   }, [displayedText, typing, nameIndex]);
+
+  useEffect(() => {
+    // Disable scroll animation on mobile
+    if (window.innerWidth < 768) return;
+
+    if (!sectionRef.current) return;
+
+    const handleScroll = () => {
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Section fully visible → RESET
+      if (rect.top <= windowHeight * 0.2 && rect.bottom >= windowHeight * 0.8) {
+        if (leftRef.current) {
+          leftRef.current.style.transform = "translate(0, 0)";
+          leftRef.current.style.opacity = "1";
+        }
+        if (rightRef.current) {
+          rightRef.current.style.transform = "translate(0, 0)";
+          rightRef.current.style.opacity = "1";
+        }
+        return;
+      }
+
+      // Section leaving upward → hide progressively
+      const progress = Math.min(
+        Math.max((windowHeight - rect.bottom) / windowHeight, 0),
+        1
+      );
+      const x = 140 * progress;
+      const y = 90 * progress;
+
+      if (leftRef.current) {
+        leftRef.current.style.transform = `translate(-${x}px, -${y}px)`;
+        leftRef.current.style.opacity = `${1 - progress}`;
+      }
+      if (rightRef.current) {
+        rightRef.current.style.transform = `translate(${x}px, -${y}px)`;
+        rightRef.current.style.opacity = `${1 - progress}`;
+      }
+    };
+
+    const options = { passive: true };
+
+    window.addEventListener("scroll", handleScroll, options);
+    window.addEventListener("wheel", handleScroll, options);
+    window.addEventListener("touchmove", handleScroll, options);
+    window.addEventListener("pointerdown", handleScroll, options);
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll, options);
+      window.removeEventListener("wheel", handleScroll, options);
+      window.removeEventListener("touchmove", handleScroll, options);
+      window.removeEventListener("pointerdown", handleScroll, options);
+    };
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Content*/}
-      <div>
-        {/*Left-Item*/}
-        <div className="intro max-w-[700px] text-white text-left relative">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center overflow-hidden"
+    >
+      {/* Content */}
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-10 px-4">
+        {/*=======================Left-Item=====================*/}
+        <div
+          ref={leftRef}
+          className="intro max-w-[700px] text-white relative text-center md:text-left
+             transition-transform transition-opacity duration-300 ease-out"
+        >
           {/* HELLO with waving hand and your name */}
-          <h2 className="text-[20px] font-extrabold tracking-wider text-[color:var(--color-foreground)] ">
+          <h2 className="text-sm sm:text-base md:text-lg font-extrabold tracking-wider text-[color:var(--color-foreground)] mb-2 ">
             <span className="inline-block border-b-2 border-[color:var(--color-subtext)] mb-5">
               HELLO{" "}
               <span className="inline-block origin-[70%_70%] animate-wave">
                 <img
-                  className="inline-block h-[50px] -ml-2"
+                  className="inline-block h-[32px] sm:h-[40px] md:h-[50px] -ml-1 sm:-ml-2"
                   src={hand}
                   alt="waving hand"
                 />
               </span>
             </span>
           </h2>
-
-          <h2 className="text-[60px] font-extrabold tracking-wider text-[color:var(--color-foreground)] -mt-6">
-            I'm <span className="text-[color:var(--color-subtext)] font-bold">{displayedText}</span>
+          {/* I'm Jayson/Developer with typing effect */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wider text-[color:var(--color-foreground)] -mt-3 sm:-mt-6 mb-4 ">
+            I'm{" "}
+            <span className="text-[color:var(--color-subtext)] font-bold">
+              {displayedText}
+            </span>
           </h2>
 
           {/* Welcome message */}
-          <h2 className="text-[60px] font-extrabold tracking-wider text-[color:var(--color-foreground)] -mt-4 leading-[1.2]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wider text-[color:var(--color-foreground)] -mt-2 sm:-mt-4 leading-tight sm:leading-[1.1]">
             WELCOME TO MY WORLD!
           </h2>
 
-          {/* Social media icons */}
-          <div className="flex gap-4 mt-6">
-            <a
-              href="https://www.facebook.com/Shun.Kiddo"
-              target="_blank"
-              className="fab fa-facebook text-white hover:text-blue-600 transition"
-            ></a>
-            <a
-              href="https://www.tiktok.com/@shun_kiddo"
-              target="_blank"
-              className="fab fa-tiktok text-white hover:text-black transition"
-            ></a>
-            <a
-              href="https://www.linkedin.com/in/jayson-flores-mancol"
-              target="_blank"
-              className="fab fa-linkedin text-white hover:text-blue-500 transition"
-            ></a>
-            <a
-              href="https://www.instagram.com/shun_kiddo"
-              target="_blank"
-              className="fab fa-instagram text-white hover:text-pink-500 transition"
-            ></a>
-          </div>
-
           {/* About Me button */}
-          <a
-            href="#aboutme"
-            className="inline-block mt-6 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
-          >
-            About Me
-          </a>
+          <div className="flex sm:flex-row items-center md:items-start justify-center md:justify-start gap-3 sm:gap-4 mt-4">
+            {/* Contact Me button */}
+            <a
+              href="#aboutme"
+              className="inline-block px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base 
+               bg-[color:var(--color-subtext)] text-white rounded-lg 
+               hover:bg-red-700 transition w-full sm:w-auto text-center"
+            >
+              Contact Me
+            </a>
+
+            {/* View CV button */}
+            <a
+              href="#"
+              className="inline-block px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base 
+               bg-transparent border border-[color:var(--color-foreground)] text-[color:var(--color-foreground)] rounded-lg 
+               hover:bg-[color:var(--color-foreground)]  hover:text-[color:var(--color-background)]  transition w-full sm:w-auto text-center"
+            >
+              View CV
+            </a>
+          </div>
         </div>
 
-        {/*Right-Item*/}
-        <div></div>
+        {/*==========================Right-Item=======================*/}
+        <div
+          ref={rightRef}
+          className="intro max-w-[400px] text-white relative flex flex-col items-center
+             transition-transform transition-opacity duration-300 ease-out"
+        >
+          {/* Profile Image */}
+          <div className="relative group">
+            {/* Decorative background element */}
+            <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-[color:var(--color-subtext)] rounded-2xl -z-10 group-hover:bottom-0 group-hover:right-0 transition-all duration-300" />
+
+            <div className="bg-[color:var(--color-background)] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={profile}
+                alt="Jayson Mancol"
+                className="w-full aspect-[4/5] object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
+              />
+
+              {/* Compact Social Media List */}
+              <div className="p-5 bg-white/[0.02]">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                  <a
+                    href="https://www.facebook.com/Shun.Kiddo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 group/link"
+                  >
+                    <i className="fab fa-facebook text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 group-hover/link:text-[#1877F2] transition-all"></i>
+                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
+                      Facebook
+                    </span>
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/jayson-flores-mancol"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 group/link"
+                  >
+                    <i className="fab fa-linkedin text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 group-hover/link:text-[#0A66C2] transition-all"></i>
+                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
+                      LinkedIn
+                    </span>
+                  </a>
+
+                  <a
+                    href="https://www.instagram.com/shun_kiddo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 group/link"
+                  >
+                    <i className="fab fa-instagram text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 group-hover/link:text-[#E4405F] transition-all"></i>
+                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
+                      Instagram
+                    </span>
+                  </a>
+
+                  <a
+                    href="https://www.tiktok.com/@shun_kiddo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 group/link"
+                  >
+                    <i className="fab fa-tiktok text-base text-[color:var(--color-foreground)] opacity-50 group-hover/link:opacity-100 transition-all"></i>
+                    <span className="text-xs font-medium opacity-50 group-hover/link:opacity-100 transition-opacity text-[color:var(--color-foreground)]">
+                      TikTok
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
 {
-  /*  
-    <div className='social-media-icons'>
-        <a href="https://www.facebook.com/Shun.Kiddo" class="fab fa-facebook soc-icon-facebook" target='blank'></a>
-        <a href="https://www.tiktok.com/@shun_kiddo" class="fab fa-tiktok soc-icon-tiktok" target='blank'></a>
-        <a href="https://www.linkedin.com/in/jayson-flores-mancol" class="fab fa-linkedin soc-icon-linkedin" target='blank'></a>
-        <a href="https://www.instagram.com/shun_kiddo" class="fab fa-instagram soc-icon-instagram" target='blank'></a>
-    </div>
-*/
+  /* Social media icons    
+  <div className="flex gap-1 mt-6 text-lg sm:text-xl md:text-2xl">
+            <a
+              href="https://www.facebook.com/Shun.Kiddo"
+              target="_blank"
+              className="fab fa-facebook text-[color:var(--color-foreground)] rounded hover:bg-[color:var(--color-primary)] transition p-2"
+            ></a>
+            <a
+              href="https://www.tiktok.com/@shun_kiddo"
+              target="_blank"
+              className="fab fa-tiktok text-[color:var(--color-foreground)]  rounded hover:bg-[color:var(--color-primary)] transition p-2"
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/jayson-flores-mancol"
+              target="_blank"
+              className="fab fa-linkedin text-[color:var(--color-foreground)]  rounded hover:bg-[color:var(--color-primary)] transition p-2"
+            ></a>
+            <a
+              href="https://www.instagram.com/shun_kiddo"
+              target="_blank"
+              className="fab fa-instagram text-[color:var(--color-foreground)] rounded hover:bg-[color:var(--color-primary)] transition p-2"
+            ></a>
+          </div>
+
+        */
 }
