@@ -6,7 +6,7 @@ const PROJECTS = [
     title: "Learning Management System",
     category: "Web App", // Added Category
     description: "A centralized academic platform where admins can manage student enrollments, create interactive quizzes, post announcements, and track assignment submissions.",
-    tags: ["Html", "Css", "JavaScript", "Node.js", "Nodemailer"],
+    tags: ["Html", "Css", "JavaScript", "MySQL", "Node.js", "Nodemailer"],
     github: "#",
     live: "#",
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=800",
@@ -15,7 +15,7 @@ const PROJECTS = [
     title: "Shun Resort Reservation",
     category: "Web App",
     description: "A specialized cottage booking platform featuring Stripe integration, secure OTP authentication via Gmail, and a comprehensive admin suite for income tracking.",
-    tags: ["Html", "Css", "JavaScript", "Node.js", "Stripe", "Nodemailer"],
+    tags: ["Html", "Css", "JavaScript", "MySQL", "Node.js", "Stripe", "Nodemailer"],
     github: "#",
     live: "#",
     image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800",
@@ -24,7 +24,7 @@ const PROJECTS = [
     title: "Event Booking System",
     category: "Web App",
     description: "A secure event management platform featuring Stripe payments, Gmail-based OTP authentication, and an admin dashboard for revenue tracking.",
-    tags: ["Html", "Css", "JavaScript", "Node.js", "Stripe", "Nodemailer"],
+    tags: ["Html", "Css", "JavaScript", "MySQL", "Node.js", "Stripe", "Nodemailer"],
     github: "#",
     live: "#",
     image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=800",
@@ -55,14 +55,19 @@ export const Project = () => {
 
   return (
     <section id="project" className="py-20 lg:py-32">
-      <div className="flex flex-col items-center mb-16">
-        <h2 className="text-sm font-bold tracking-[0.2em] text-[color:var(--color-subtext)] uppercase mb-2">
-          Portfolio
-        </h2>
-        <h3 className="text-3xl md:text-5xl font-extrabold text-[color:var(--color-foreground)]">
+      <div className="relative flex justify-center mb-16">
+        {/* Portfolio label aligned to the left of the heading */}
+        <div className="absolute -top-6 left-0 flex items-center gap-2">
+          <div className="w-8 h-[1px] bg-[color:var(--color-subtext)] opacity-50"></div>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[color:var(--color-subtext)]">
+            Portfolio
+          </span>
+        </div>
+
+        {/* Main heading */}
+        <h3 className="text-3xl md:text-5xl font-extrabold text-[color:var(--color-foreground)] border-b-6 border-[color:var(--color-subtext)]">
           LATEST PROJECTS
         </h3>
-        <div className="w-20 h-1.5 bg-[color:var(--color-subtext)] mt-4 rounded-full"></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -78,7 +83,7 @@ export const Project = () => {
                 alt={project.title}
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
               />
-              
+
               <div className="absolute inset-0 bg-black/90 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out flex flex-col justify-center">
                 {/* Overlay Category Badge */}
                 <span className="text-[10px] font-bold text-[color:var(--color-subtext)] mb-2 uppercase tracking-widest">
@@ -88,12 +93,12 @@ export const Project = () => {
                   {project.description}
                 </p>
                 <div className="flex gap-4">
-                   <a href={project.github} className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs">
-                     <Github size={16} /> Code
-                   </a>
-                   <a href={project.live} className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs">
-                     <ExternalLink size={16} /> Live Demo
-                   </a>
+                  <a href={project.github} className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs">
+                    <Github size={16} /> Code
+                  </a>
+                  <a href={project.live} className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs">
+                    <ExternalLink size={16} /> Live Demo
+                  </a>
                 </div>
               </div>
 

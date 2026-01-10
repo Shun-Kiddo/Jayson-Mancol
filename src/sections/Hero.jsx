@@ -123,11 +123,11 @@ export const Hero = () => {
   ];
 
   return (
-    <section
-      id="hero"
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden"
-    >
+  <section
+  id="hero"
+  ref={sectionRef}
+  className="relative min-h-screen flex items-center overflow-hidden pt-20 md:pt-0"
+>
       {/* Content */}
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-10 px-4">
         {/*=======================Left-Item=====================*/}
