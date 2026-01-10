@@ -1,15 +1,20 @@
 import { ExternalLink, Github, Folder, Globe, Smartphone } from "lucide-react";
 import { useState } from "react";
-
+import lms from "@/assets/lms-pic.jpg";
+import shun from "@/assets/shunresort.jpg";
+import event from "@/assets/eventbooking.jpg";
+import lostandfound from "@/assets/lostandfound.jpg";
+import fashionidea from "@/assets/fashionidea.jpg";
+import spellBee from "@/assets/spellBee.jpg";
 const PROJECTS = [
   {
     title: "Learning Management System",
-    category: "Web App", // Added Category
+    category: "Web App",
     description: "A centralized academic platform where admins can manage student enrollments, create interactive quizzes, post announcements, and track assignment submissions.",
     tags: ["Html", "Css", "JavaScript", "MySQL", "Node.js", "Nodemailer"],
     github: "#",
     live: "#",
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=800",
+    image: lms,
   },
   {
     title: "Shun Resort Reservation",
@@ -18,7 +23,7 @@ const PROJECTS = [
     tags: ["Html", "Css", "JavaScript", "MySQL", "Node.js", "Stripe", "Nodemailer"],
     github: "#",
     live: "#",
-    image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800",
+    image: shun,
   },
   {
     title: "Event Booking System",
@@ -27,16 +32,16 @@ const PROJECTS = [
     tags: ["Html", "Css", "JavaScript", "MySQL", "Node.js", "Stripe", "Nodemailer"],
     github: "#",
     live: "#",
-    image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=800",
+    image: event,
   },
   {
     title: "Lost & Found Mobile App",
-    category: "Mobile App", // Added Category
+    category: "Mobile App",
     description: "A real-time Android application built for community assistance, allowing users to report lost or found items with instant updates and built-in communication features.",
     tags: ["Kotlin", "Jetpack Compose", "Firebase", "Appwrite"],
     github: "#",
     live: "#",
-    image: "https://images.unsplash.com/photo-1546776310-eef45dd6d63c?auto=format&fit=crop&q=80&w=800",
+    image: lostandfound,
   },
   {
     title: "Fashion Fusion App",
@@ -45,8 +50,17 @@ const PROJECTS = [
     tags: ["Kotlin", "Jetpack Compose", "Firebase", "Appwrite"],
     github: "#",
     live: "#",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800",
+    image: fashionidea,
   },
+  {
+    title: "Spell Bee Game",
+    category: "Mobile App",
+    description: "A fun word-guessing game where users try to figure out the correct word in a limited time. The game features multiple levels, hints, and a timer to challenge players’ spelling and quick thinking skills.",
+    tags: ["Kotlin", "Jetpack Compose", "Firebase"],
+    github: "#",
+    live: "#",
+    image: spellBee,
+  }
 ];
 
 export const Project = () => {
@@ -65,7 +79,7 @@ export const Project = () => {
         </div>
 
         {/* Main heading */}
-        <h3 className="text-3xl md:text-5xl font-extrabold text-[color:var(--color-foreground)] border-b-6 border-[color:var(--color-subtext)]">
+        <h3 className="text-3xl md:text-5xl font-extrabold text-[color:var(--color-foreground)] border-b-4 border-[color:var(--color-subtext)] pb-2">
           LATEST PROJECTS
         </h3>
       </div>
@@ -77,15 +91,27 @@ export const Project = () => {
             className="group relative bg-[color:var(--color-background)] border border-gray-400 rounded-2xl overflow-hidden hover:border-[color:var(--color-subtext)]/50 transition-all duration-500 h-[450px] animate-in fade-in zoom-in duration-500"
           >
             {/* Image and Detail Overlay */}
-            <div className="relative h-64 overflow-hidden">
+            <div className="relative h-64 md:h-64 overflow-hidden group">
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                className="
+      w-full h-auto md:h-64 object-contain md:object-cover
+      grayscale md:group-hover:grayscale-0
+      transition-all duration-700
+      md:group-hover:scale-110
+    "
               />
 
-              <div className="absolute inset-0 bg-black/90 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out flex flex-col justify-center">
-                {/* Overlay Category Badge */}
+              {/* Overlay */}
+              <div
+                className="
+      absolute inset-0 bg-black/90 p-6
+      flex flex-col justify-center
+      transition-transform duration-500 ease-in-out
+      translate-y-0 md:translate-y-full md:group-hover:translate-y-0
+    "
+              >
                 <span className="text-[10px] font-bold text-[color:var(--color-subtext)] mb-2 uppercase tracking-widest">
                   {project.category}
                 </span>
@@ -93,16 +119,22 @@ export const Project = () => {
                   {project.description}
                 </p>
                 <div className="flex gap-4">
-                  <a href={project.github} className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs">
+                  <a
+                    href={project.github}
+                    className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs"
+                  >
                     <Github size={16} /> Code
                   </a>
-                  <a href={project.live} className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs">
+                  <a
+                    href={project.live}
+                    className="text-white hover:text-[color:var(--color-subtext)] flex items-center gap-2 text-xs"
+                  >
                     <ExternalLink size={16} /> Live Demo
                   </a>
                 </div>
               </div>
 
-              <div className="absolute inset-0 bg-black/20 group-hover:opacity-0 transition-all duration-500" />
+              <div className="absolute inset-0 bg-black/20 md:group-hover:opacity-0 transition-all duration-500" />
             </div>
 
             {/* Bottom Content */}

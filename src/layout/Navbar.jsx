@@ -1,4 +1,4 @@
-import profile from "@/assets/jayson-pic.jfif";
+import profile from "@/assets/jayson-pic.jpg";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Menu, X } from "lucide-react";

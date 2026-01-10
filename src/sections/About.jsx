@@ -220,7 +220,7 @@ export const About = () => {
                 </span>
               </p>
               <a
-                href="mailto:your-email@example.com"
+                href="#contact"
                 className="px-8 py-3 bg-[color:var(--color-foreground)] text-[color:var(--color-background)] font-bold rounded-full hover:scale-105 transition-transform"
               >
                 Let's Talk

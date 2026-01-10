@@ -1,4 +1,4 @@
-import profile from "@/assets/jayson-pic.jfif";
+import profile from "@/assets/jayson-pic.jpg";
 import hand from "@/assets/waving-hand.svg";
 import { useEffect, useRef, useState } from "react";
 import { Github, Linkedin, Facebook, Instagram, ArrowUp } from "lucide-react";
@@ -166,7 +166,7 @@ export const Hero = () => {
           <div className="flex sm:flex-row items-center md:items-start justify-center md:justify-start gap-3 sm:gap-4 mt-4">
             {/* Contact Me button */}
             <a
-              href="#aboutme"
+              href="#contact"
               className="inline-block px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base 
                bg-[color:var(--color-subtext)] text-white rounded-lg 
                hover:bg-red-700 transition w-full sm:w-auto text-center"
